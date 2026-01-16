@@ -1,9 +1,8 @@
 //
 //  Obfuscate.swift
-//  Obfuscate
+//  SwiftMacros
 //
-//  Created by Seb Vidal on 23/04/2025.
-//  Updated by Aether on 14/01/2026.
+//  Created by Aether on 16/01/2026.
 //
 
 import Foundation
@@ -68,7 +67,7 @@ public enum ObfuscationMethod {
 ///
 /// - Note: To use a different method, see ``Obfuscate(_:_:)`` and ``ObfuscationMethod``.
 @freestanding(expression)
-public macro Obfuscate(_ string: StaticString) -> String = #externalMacro(module: "ObfuscateMacro", type: "ObfuscatedString")
+public macro Obfuscate(_ string: StaticString) -> String = #externalMacro(module: "SwiftMacrosPlugin", type: "ObfuscatedString")
 
 /// Obfuscates a string literal at compile-time using the specified method.
 ///
@@ -91,4 +90,4 @@ public macro Obfuscate(_ string: StaticString) -> String = #externalMacro(module
 ///
 /// - Tip: Use ``ObfuscationMethod/xor`` or ``ObfuscationMethod/bitShift`` for best results.
 @freestanding(expression)
-public macro Obfuscate(_ string: StaticString, _ method: ObfuscationMethod) -> String = #externalMacro(module: "ObfuscateMacro", type: "ObfuscatedString")
+public macro Obfuscate(_ string: StaticString, _ method: ObfuscationMethod) -> String = #externalMacro(module: "SwiftMacrosPlugin", type: "ObfuscatedString")

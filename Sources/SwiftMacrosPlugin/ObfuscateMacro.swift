@@ -1,15 +1,15 @@
 //
-//  ObfuscateMacro.swift
-//  Obfuscate
+//  SwiftMacrosPlugin.swift
+//  SwiftMacros
 //
-//  Created by Seb Vidal on 23/04/2025.
+//  Created by Aether on 16/01/2026.
 //
 
 import SwiftSyntaxMacros
 import SwiftCompilerPlugin
 
 @main
-struct ObfuscateMacro: CompilerPlugin {
+struct SwiftMacrosPlugin: CompilerPlugin {
     let providingMacros: [Macro.Type] = [
         ObfuscatedString.self
     ]

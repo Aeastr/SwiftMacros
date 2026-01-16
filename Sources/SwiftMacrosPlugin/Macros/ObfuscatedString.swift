@@ -1,9 +1,8 @@
 //
 //  ObfuscatedString.swift
-//  Obfuscate
+//  SwiftMacros
 //
-//  Created by Seb Vidal on 23/04/2025.
-//  Updated by Aether on 14/01/2026.
+//  Created by Aether on 16/01/2026.
 //
 
 import Foundation

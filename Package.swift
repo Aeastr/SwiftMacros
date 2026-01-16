@@ -1,8 +1,8 @@
 //
 //  Package.swift
-//  Obfuscate
+//  SwiftMacros
 //
-//  Created by Seb Vidal on 23/04/2025.
+//  Created by Aether on 16/01/2026.
 //
 
 // swift-tools-version: 6.0
@@ -15,7 +15,7 @@ import PackageDescription
 import CompilerPluginSupport
 
 let package = Package(
-    name: "Obfuscate",
+    name: "SwiftMacros",
     platforms: [
         .iOS(.v13),
         .tvOS(.v13),
@@ -26,8 +26,8 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "Obfuscate",
-            targets: ["Obfuscate"]
+            name: "SwiftMacros",
+            targets: ["SwiftMacros"]
         ),
     ],
     dependencies: [
@@ -37,11 +37,11 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "Obfuscate",
-            dependencies: ["ObfuscateMacro"]
+            name: "SwiftMacros",
+            dependencies: ["SwiftMacrosPlugin"]
         ),
         .macro(
-            name: "ObfuscateMacro",
+            name: "SwiftMacrosPlugin",
             dependencies: [
                 .product(name: "SwiftSyntax", package: "swift-syntax"),
                 .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
@@ -49,13 +49,13 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "ObfuscateTests",
-            dependencies: ["Obfuscate"]
+            name: "SwiftMacrosTests",
+            dependencies: ["SwiftMacros"]
         ),
         .testTarget(
-            name: "ObfuscateMacroTests",
+            name: "SwiftMacrosPluginTests",
             dependencies: [
-                "ObfuscateMacro",
+                "SwiftMacrosPlugin",
                 .product(name: "SwiftSyntax", package: "swift-syntax"),
                 .product(name: "SwiftParser", package: "swift-syntax"),
                 .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
