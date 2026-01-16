@@ -20,6 +20,8 @@
 
 - **`#Obfuscate`** — Compile-time string obfuscation to hide strings from static analysis
 - **`#previewOnly`** — Execute code only when running in Xcode Previews
+- **`#buildConfig`** — Different values for DEBUG vs RELEASE builds
+- **`@PublicInit`** — Generate public memberwise initializer for structs
 
 
 ## Installation
@@ -72,6 +74,33 @@ Execute code only when running in Xcode Previews.
 ```
 
 Expands to the `ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"` check.
+
+### #buildConfig
+
+Different values based on build configuration.
+
+```swift
+let apiURL = #buildConfig(debug: "http://localhost:3000", release: "https://api.prod.com")
+let timeout = #buildConfig(debug: 60, release: 10)
+```
+
+Expands to `#if DEBUG` / `#else` / `#endif`.
+
+### @PublicInit
+
+Generate a public memberwise initializer for structs.
+
+```swift
+@PublicInit
+public struct User {
+    let id: UUID
+    let name: String
+    var isActive: Bool = true
+}
+
+// Generates:
+// public init(id: UUID, name: String, isActive: Bool = true) { ... }
+```
 
 
 ## Contributing
