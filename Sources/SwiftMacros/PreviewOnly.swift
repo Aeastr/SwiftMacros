@@ -12,23 +12,74 @@ import Foundation
 /// This macro wraps your code in a check for the `XCODE_RUNNING_FOR_PREVIEWS` environment variable,
 /// so it only runs during SwiftUI preview rendering.
 ///
+/// ## Usage
+///
 /// ```swift
 /// #previewOnly {
 ///     print("This only runs in previews")
 /// }
 /// ```
 ///
-/// Expands to:
+/// ## Expansion
+///
+/// The macro expands to:
+///
 /// ```swift
-/// if ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1" {
-///     print("This only runs in previews")
+/// {
+///     if ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1" {
+///         print("This only runs in previews")
+///     }
+/// }()
+/// ```
+///
+/// ## Use Cases
+///
+/// ### Injecting Mock Data
+///
+/// ```swift
+/// struct ContentView: View {
+///     @StateObject var viewModel = ViewModel()
+///
+///     var body: some View {
+///         List(viewModel.items) { item in
+///             Text(item.name)
+///         }
+///         .onAppear {
+///             #previewOnly {
+///                 viewModel.items = MockData.sampleItems
+///             }
+///         }
+///     }
 /// }
 /// ```
 ///
-/// **Use cases:**
-/// - Injecting mock data for previews
-/// - Enabling debug UI only in previews
-/// - Skipping expensive operations during preview rendering
+/// ### Debug UI in Previews
+///
+/// ```swift
+/// var body: some View {
+///     VStack {
+///         MainContent()
+///
+///         #previewOnly {
+///             DebugOverlay()
+///         }
+///     }
+/// }
+/// ```
+///
+/// ### Skipping Expensive Operations
+///
+/// ```swift
+/// func loadData() async {
+///     #previewOnly {
+///         self.data = MockData.sample
+///         return
+///     }
+///
+///     // Real network call only runs in non-preview builds
+///     self.data = try await api.fetchData()
+/// }
+/// ```
 ///
 /// - Parameter body: The code to execute only during Xcode Previews.
 @freestanding(expression)
