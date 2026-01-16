@@ -74,17 +74,6 @@ Execute code only when running in Xcode Previews.
 Expands to the `ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"` check.
 
 
-## How It Works
-
-Both macros are freestanding expression macros that transform code at compile-time.
-
-**#Obfuscate** converts string literals into byte arrays with a decoding routine. The original string never appears in the binary. Different methods use different encoding strategies (XOR with random key, bit rotation, etc).
-
-**#previewOnly** wraps the closure in an environment variable check that Xcode sets during preview rendering.
-
-Full expansion examples and method details are available via Xcode Quick Help (Option-click).
-
-
 ## Contributing
 
 Contributions welcome. Please feel free to submit a Pull Request.
