@@ -11,6 +11,7 @@ import SwiftCompilerPlugin
 @main
 struct SwiftMacrosPlugin: CompilerPlugin {
     let providingMacros: [Macro.Type] = [
-        ObfuscatedString.self
+        ObfuscatedString.self,
+        PreviewOnly.self
     ]
 }
