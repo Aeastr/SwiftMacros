@@ -36,13 +36,19 @@ public struct PublicInit: MemberMacro {
             for binding in varDecl.bindings {
                 // Skip computed properties
                 if let accessor = binding.accessorBlock {
-                    // Check if it's just a simple storage (willSet/didSet is fine, get/set is not)
-                    let hasGetter = accessor.accessors.as(AccessorDeclListSyntax.self)?.contains {
-                        $0.accessorSpecifier.text == "get"
-                    } ?? false
-
-                    if hasGetter {
+                    // Shorthand computed property: var x: Int { ... } - CodeBlockSyntax
+                    if accessor.accessors.is(CodeBlockItemListSyntax.self) {
                         continue
+                    }
+
+                    // Explicit accessor: var x: Int { get { ... } } - AccessorDeclListSyntax
+                    if let accessorList = accessor.accessors.as(AccessorDeclListSyntax.self) {
+                        let hasGetter = accessorList.contains {
+                            $0.accessorSpecifier.text == "get"
+                        }
+                        if hasGetter {
+                            continue
+                        }
                     }
                 }
 
