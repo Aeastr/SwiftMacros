@@ -1,12 +1,12 @@
 //
 //  ObfuscateMacroTests.swift
-//  Obfuscate
+//  SwiftMacros
 //
-//  Created by Aether on 14/01/2026.
+//  Created by Aether on 16/01/2026.
 //
 //  NOTE: These tests verify strings are actually obfuscated (not just decoded correctly).
 //  Due to Xcode limitations with SwiftSyntax macro testing, run via CLI:
-//    xcodebuild test -scheme Obfuscate -destination 'platform=macOS'
+//    xcodebuild test -scheme SwiftMacros -destination 'platform=macOS'
 //
 
 import SwiftParser
@@ -16,13 +16,13 @@ import SwiftSyntaxMacros
 import SwiftSyntaxMacrosTestSupport
 import XCTest
 
-#if canImport(ObfuscateMacro)
-import ObfuscateMacro
+#if canImport(SwiftMacrosPlugin)
+import SwiftMacrosPlugin
 #endif
 
 final class ObfuscateMacroTests: XCTestCase {
 
-    #if canImport(ObfuscateMacro)
+    #if canImport(SwiftMacrosPlugin)
     private let testMacros: [String: Macro.Type] = [
         "Obfuscate": ObfuscatedString.self,
     ]
@@ -31,7 +31,7 @@ final class ObfuscateMacroTests: XCTestCase {
     // MARK: - XOR (Default)
 
     func testXORObfuscatesString() throws {
-        #if canImport(ObfuscateMacro)
+        #if canImport(SwiftMacrosPlugin)
         let source = #"#Obfuscate("SecretString", .xor)"#
         let sf = Parser.parse(source: source)
         let context = BasicMacroExpansionContext()
@@ -47,7 +47,7 @@ final class ObfuscateMacroTests: XCTestCase {
     }
 
     func testDefaultUsesXOR() throws {
-        #if canImport(ObfuscateMacro)
+        #if canImport(SwiftMacrosPlugin)
         let source = #"#Obfuscate("TestDefault")"#
         let sf = Parser.parse(source: source)
         let context = BasicMacroExpansionContext()
@@ -64,7 +64,7 @@ final class ObfuscateMacroTests: XCTestCase {
     // MARK: - Bit Shift
 
     func testBitShiftObfuscatesString() throws {
-        #if canImport(ObfuscateMacro)
+        #if canImport(SwiftMacrosPlugin)
         let source = #"#Obfuscate("ShiftTest", .bitShift)"#
         let sf = Parser.parse(source: source)
         let context = BasicMacroExpansionContext()
@@ -81,7 +81,7 @@ final class ObfuscateMacroTests: XCTestCase {
     // MARK: - Reversed
 
     func testReversedObfuscatesString() throws {
-        #if canImport(ObfuscateMacro)
+        #if canImport(SwiftMacrosPlugin)
         let source = #"#Obfuscate("ReverseTest", .reversed)"#
         let sf = Parser.parse(source: source)
         let context = BasicMacroExpansionContext()
@@ -98,7 +98,7 @@ final class ObfuscateMacroTests: XCTestCase {
     // MARK: - Base64
 
     func testBase64ObfuscatesString() throws {
-        #if canImport(ObfuscateMacro)
+        #if canImport(SwiftMacrosPlugin)
         let source = #"#Obfuscate("Base64Test", .base64)"#
         let sf = Parser.parse(source: source)
         let context = BasicMacroExpansionContext()
@@ -115,7 +115,7 @@ final class ObfuscateMacroTests: XCTestCase {
     // MARK: - Bytes
 
     func testBytesObfuscatesString() throws {
-        #if canImport(ObfuscateMacro)
+        #if canImport(SwiftMacrosPlugin)
         let source = #"#Obfuscate("BytesTest", .bytes)"#
         let sf = Parser.parse(source: source)
         let context = BasicMacroExpansionContext()

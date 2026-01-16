@@ -1,12 +1,12 @@
 <div align="center">
-  <h1><b>Obfuscate</b></h1>
+  <h1><b>SwiftMacros</b></h1>
   <p>
-    Compile-time string obfuscation macro for Swift.
+    A collection of useful Swift macros.
   </p>
 </div>
 
 <p align="center">
-  <a href="https://github.com/Aeastr/Obfuscate/actions/workflows/tests.yml"><img src="https://github.com/Aeastr/Obfuscate/actions/workflows/tests.yml/badge.svg" alt="Tests"></a>
+  <a href="https://github.com/Aeastr/SwiftMacros/actions/workflows/tests.yml"><img src="https://github.com/Aeastr/SwiftMacros/actions/workflows/tests.yml/badge.svg" alt="Tests"></a>
   <a href="https://swift.org"><img src="https://img.shields.io/badge/Swift-6.0+-F05138?logo=swift&logoColor=white" alt="Swift 6.0+"></a>
   <a href="https://developer.apple.com"><img src="https://img.shields.io/badge/iOS-13+-000000?logo=apple" alt="iOS 13+"></a>
   <a href="https://developer.apple.com"><img src="https://img.shields.io/badge/macOS-10.15+-000000?logo=apple" alt="macOS 10.15+"></a>
@@ -17,9 +17,24 @@
 </p>
 
 
-## Overview
+## Installation
 
-A Swift macro that obfuscates string literals at compile-time. Hides strings from static analysis tools like `strings`, hex editors, and automated scanners.
+```swift
+dependencies: [
+    .package(url: "https://github.com/Aeastr/SwiftMacros.git", from: "1.0.0")
+]
+```
+
+```swift
+import SwiftMacros
+```
+
+
+## Macros
+
+### #Obfuscate
+
+Compile-time string obfuscation macro. Hides strings from static analysis tools like `strings`, hex editors, and automated scanners.
 
 **Good for:**
 - Private API usage (class names, selectors)
@@ -33,21 +48,7 @@ A Swift macro that obfuscates string literals at compile-time. Hides strings fro
 > [!CAUTION]
 > This raises the bar from "trivial" to "annoying" — it's not real security. If a secret is in your binary, assume it can be extracted.
 
-
-## Installation
-
-```swift
-dependencies: [
-    .package(url: "https://github.com/Aeastr/Obfuscate.git", from: "1.3.0")
-]
-```
-
-```swift
-import Obfuscate
-```
-
-
-## Usage
+#### Usage
 
 ```swift
 // Default (XOR)
@@ -64,8 +65,7 @@ let secret = #Obfuscate("MySecretString", .bytes)
 > [!NOTE]
 > Xcode will prompt you to trust macros from this package on first use. This is standard for Swift macro packages—click "Trust & Enable" to proceed.
 
-
-## Methods
+#### Methods
 
 All methods hide strings from basic static analysis (`strings` command, hex editors). Ranked by obfuscation strength:
 
@@ -77,7 +77,7 @@ All methods hide strings from basic static analysis (`strings` command, hex edit
 | 4 | `.base64` | String → Base64 → byte array |
 | 5 | `.bytes` | String → raw UTF-8 byte array |
 
-### Which to use?
+**Which to use?**
 
 - **`.xor`** — Best. Random key each build, no recognizable patterns, output varies per compilation.
 - **`.bitShift`** — Very good. Random rotation each build, bytes are transformed beyond recognition.
@@ -88,8 +88,7 @@ All methods hide strings from basic static analysis (`strings` command, hex edit
 > [!TIP]
 > For most use cases, `.xor` or `.bitShift` are recommended. All methods achieve the same goal—the ranking reflects resistance to manual reverse engineering.
 
-
-## How It Works
+#### How It Works
 
 At compile-time, the macro transforms your string into executable code that reconstructs it at runtime. The original string never appears in the binary.
 

@@ -1,12 +1,12 @@
 //
 //  ObfuscateTests.swift
-//  Obfuscate
+//  SwiftMacros
 //
-//  Created by Aether on 14/01/2026.
+//  Created by Aether on 16/01/2026.
 //
 
 import XCTest
-@testable import Obfuscate
+@testable import SwiftMacros
 
 final class ObfuscateTests: XCTestCase {
 
