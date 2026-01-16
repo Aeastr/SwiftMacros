@@ -30,4 +30,4 @@ jobs:
         run: swift build
 
       - name: Run Tests
-        run: xcodebuild test -scheme Obfuscate -destination 'platform=macOS'
+        run: xcodebuild test -scheme SwiftMacros -destination 'platform=macOS'
